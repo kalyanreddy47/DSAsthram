@@ -43,8 +43,8 @@
         printf("\nEnter number of vertices");<br>
         scanf("%d",&n);<br>
         printf("\n enter %d elements into adjcency matrix",n*n);<br>
-        for(i=1;i<=n;i++){<br>
-        for(j=1;j<=n;j++){<br>
+        for(i=1;i < =n;i++){<br>
+        for(j=1;j < =n;j++){<br>
             scanf("%d",&a[i][j]);<br>
         }<br>
         }<br>
@@ -73,8 +73,8 @@
             printf("enter no of vertex");<br>
             scanf("%d",&n);<br>
             printf("\n enter %d vertices into matrix",n);<br>
-            for(i=0;i<n;i++)<br>
-            for(j=0;j<n;j++)<br>
+            for(i=0;i < n;i++)<br>
+            for(j=0;j < n;j++)<br>
             scanf("%d",&Adj[i][j]);<br>
             printf("\n enter starting vertex");<br>
             scanf("%d",&starting_vertex);<br>
@@ -104,7 +104,7 @@ printf("%d ", source);<br>
 while(queue_front <= queue_end) {<br>
 //dequeue first element from the queue<br>
 i = dequeue();<br>
-for(j = 0; j <n; j++) { <br><br>
+for(j = 0; j < n; j++) { <br>
 if(visited[j] == 0 && Adj[i][j] == 1) {<br>
 //mark vertex as visited<br>
 visited[j] = 1;<br>
