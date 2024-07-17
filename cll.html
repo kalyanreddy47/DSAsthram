@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    #include stdio.h <br>
+        #include stdlib.h <br>
+        struct node{<br>
+         struct node *llink;<br>
+         int data;<br>
+         struct node *rlink;<br>
+        }*head=NULL,*tail=NULL;<br>
+        int count()<br>
+        {<br>
+         struct node *temp;<br>
+         int i=1;<br>
+         temp=head;<br>
+         while(temp->rlink!=head)<br>
+         {<br>
+         temp=temp->rlink;<br>
+         i++;<br>
+         }<br>
+         return(i);<br>
+        }<br>
+        struct node *create(int value)<br>
+        {<br>
+         struct node *temp;<br>
+         temp=(struct node*)malloc(sizeof(struct node));<br>
+         temp->data=value;<br>
+         temp->rlink=temp;<br>
+         temp->llink=temp;<br>
+         return temp;<br>
+        }<br>
+        void insert_begin(int value)<br>
+        {<br>
+         struct node *newnode;<br>
+         newnode=create(value);<br>
+         if(head==NULL)<br>
+         {<br>
+         head=tail=newnode;<br>
+         }<br>
+         else<br>
+         {<br>
+         newnode->llink=tail;<br>
+         newnode->rlink=head;<br>
+         head->llink=newnode;<br>
+         tail->rlink=newnode;<br>
+         head=newnode;<br>
+         }<br>
+        }<br>
+        void insert_end(int value)<br>
+        {<br>
+         struct node *newnode, *temp;<br>
+         newnode=create(value);<br>
+         if(head==NULL)<br>
+         {<br>
+         head=tail=newnode;<br>
+         }<br>
+         else<br>
+         {<br>
+         newnode->rlink=head;<br>
+         newnode->llink=tail;<br>
+         tail->rlink=newnode;<br>
+         head->llink=newnode;<br>
+         tail=newnode;<br>
+         }<br>
+        }<br>
+        void insert_pos(int value,int pos)<br>
+        {<br>
+         struct node *newnode, *temp1,*temp2,*temp;<br>
+         int i,c=1;<br>
+         i=count();<br>
+         if(pos==1)<br>
+         insert_begin(value);<br>
+         else if(pos>i+1)<br>
+         {<br>
+         printf("insertion is not posible");<br>
+         return;<br>
+         }<br>
+         else if(pos==i+1)<br>
+         {<br>
+         insert_end(value);<br>
+         }<br>
+         else<br>
+         {<br>
+         newnode=create(value);<br>
+         temp=head;<br>
+         while(c<pos ){
+         temp=temp->rlink;
+         c++;
+         } <br>
+         temp1=temp->llink;<br>
+         temp1->rlink=newnode;<br>
+         temp->llink=newnode;<br>
+         newnode->llink=temp1;<br>
+         newnode->rlink=temp;<br>
+         }<br>
+        }<br>
+        void delete_begin()<br>
+        {<br>
+         struct node *temp;<br>
+         if(head==NULL)<br>
+         {<br>
+         printf("deletion is not possible");<br>
+         }<br>
+         else<br>
+         {<br>
+         temp=head;<br>
+         head=head->rlink;<br>
+         if(head==tail)<br>
+         head=tail=NULL;<br>
+         else<br>
+         {<br>
+         head->llink=tail;<br>
+         tail->rlink=head;<br>
+         }<br>
+         free(temp);<br>
+         }<br>
+        }<br>
+        void delete_end()<br>
+        {<br>
+         struct node *temp;<br>
+         if(head==NULL)<br>
+         {<br>
+         printf("deletion is not possible");<br>
+         }<br>
+         else<br>
+         {<br>
+         temp=tail;<br>
+         if(tail==head)<br>
+         {<br>
+         head=tail=NULL;<br>
+         }else<br>
+         {<br>
+         tail=tail->llink;<br>
+         tail->rlink=head;<br>
+         head->llink=tail;<br>
+         }<br>
+         free(temp);<br>
+         }<br>
+        }<br>
+        void delete_pos(int pos)<br>
+        {<br>
+         struct node *temp1,*temp2,*temp;<br>
+         int i,c=1;<br>
+         i=count();<br>
+         if(pos==1)<br>
+         delete_begin();<br>
+         else if(pos>i)<br>
+         {<br>
+         printf("Deletion is not posible");<br>
+         return;<br>
+         }<br>
+         else if(pos==i)<br>
+         {<br>
+         delete_end();<br>
+         }<br>
+         else<br>
+         {<br>
+         temp=head;<br>
+         while(c<pos)<br>
+         {<br>
+         temp=temp->rlink;<br>
+         c++;<br>
+         }<br>
+         temp1=temp->llink;<br>
+         temp2=temp->rlink;<br>
+         temp1->rlink=temp2;<br>
+         temp2->llink=temp1;<br>
+         free(temp);<br>
+         }<br>
+        }<br>
+        void display()<br>
+        {<br>
+         struct node *temp;<br>
+         if(head==NULL)<br>
+         {<br>
+         printf("list is empty");<br>
+         }<br>
+         else<br>
+         {<br>
+         temp=head;<br>
+         while(temp!=tail)<br>
+         {<br>
+         printf("%d <-> ",temp->data);<br>
+         temp=temp->rlink;<br>
+         }<br>
+         printf("%d",temp->data);<br>
+         }<br>
+        }<br>
+        void main()<br>
+        {<br>
+         int ch,pos,value;<br>
+         do<br>
+         {<br>
+         printf("\n1.Insert Begin\n2.Insert End\n3.Insert Position\n4.Delete<br>
+        Begin\n5.Delete End\n6.Delete Position\n7.Display\n8.Exit\n");<br>
+         printf("Enter your choice: ");<br>
+         scanf("%d",&ch);<br>
+         switch(ch)<br>
+         {<br>
+         case 1: printf("Enter the value: ");<br>
+         scanf("%d",&value);<br>
+         insert_begin(value);<br>
+         break;<br>
+         case 2: printf("Enter value: ");<br>
+         scanf("%d",&value);<br>
+         insert_end(value);<br>
+         break;<br>
+         case 3: printf("Enter value: ");<br>
+         scanf("%d",&value);<br>
+         printf("Enter position you want to insert: ");<br>
+         scanf("%d",&pos);<br>
+         insert_pos(value,pos);<br>
+         break;<br>
+         case 4: delete_begin();<br>
+         break;<br>
+         case 5: delete_end();<br>
+         break;<br>
+         case 6: printf("Enter position you want to delete: ");<br>
+         scanf("%d",&pos);<br>
+         delete_pos(pos);<br>
+         break;<br>
+         case 7: display();<br>
+         break;<br>
+         case 8:break;<br>
+         default: printf("\nyour choice is wrong!.. ");<br>
+         }<br>
+         }while(ch!=8);<br>
+        } <br>   
+</body>
+</html>

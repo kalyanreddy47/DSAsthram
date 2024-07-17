@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Stack and Queue Using Linked List</title>
+</head>
+<body>
+    <h2>Stack Using Linked List</h2>
+    #include stdio.h <br>
+        struct Node<br>
+        {<br>
+        int data;<br>
+        struct Node *next;<br>
+        }*top = NULL;<br>
+        void push(int);<br>
+        void pop();<br>
+        void display();<br>
+        void main()<br>
+        {<br>
+        int choice, value;<br>
+        printf("\n:: Stack using Linked List ::\n");<br>
+        while(1){<br>
+        printf("\n****** MENU ******\n");<br>
+        printf("1. Push\n2. Pop\n3. Display\n4. Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d",&choice);<br>
+        switch(choice){<br>
+        case 1: printf("Enter the value to be insert: ");<br>
+        scanf("%d", &value);<br>
+        push(value);<br>
+        break;<br>
+        case 2: pop(); break;<br>
+        case 3: display(); break;<br>
+        case 4: exit(0);<br>
+        default: printf("\nWrong selection!!! Please try again!!!\n");<br>
+        }<br>
+        }<br>
+        }<br>
+        void push(int value)<br>
+        {<br>
+        struct Node *newNode;<br>
+        newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+        newNode->data = value;<br>
+        if(top == NULL)<br>
+        newNode->next = NULL;<br>
+        else<br>
+        newNode->next = top;<br>
+        top = newNode;<br>
+        printf("\nInsertion is Success!!!\n");<br>
+        }<br>
+        void pop()<br>
+        {<br>
+        if(top == NULL)<br>
+        printf("\nStack is Empty!!!\n");<br>
+        else{<br>
+        struct Node *temp = top;<br>
+        printf("\nDeleted element: %d", temp->data);<br>
+        top = temp->next;<br>
+        free(temp);<br>
+        }<br>
+        }<br>
+        void display()<br>
+        {<br>
+        if(top == NULL)<br>
+        printf("\nStack is Empty!!!\n");<br>
+        else{<br>
+        printf("Stack Elements are is\n ");<br>
+        struct Node *temp = top;<br>
+        while(temp->next != NULL){<br>
+        printf("%d--->",temp->data);<br>
+        temp = temp -> next;<br>
+        }<br>
+        printf("%d--->NULL",temp->data);<br>
+        }<br>
+        }<br>
+        <h2>Queue Using Linked List</h2><br>
+        #include stdio.h<br>
+            struct Node<br>
+            {<br>
+            int data;<br>
+            struct Node *next;<br>
+            }*front = NULL,*rear = NULL;<br>
+            void enQueue (int);<br>
+            void deQueue ();<br>
+            void display();<br>
+            void main()<br>
+            {<br>
+            int choice, value;<br>
+            printf("\n:: Queue Implementation using Linked List ::\n");<br>
+            while(1){<br>
+            printf("\n****** MENU ******\n");<br>
+            printf("1. Insert\n2. Delete\n3. Display\n4. Exit\n");<br>
+            printf("Enter your choice: ");<br>
+            scanf("%d",&choice);<br>
+            switch(choice){<br>
+            case 1: printf("Enter the value to be insert: ");<br>
+            scanf("%d", &value);<br>
+            enQueue (value);<br>
+            break;<br>
+            case 2: deQueue (); break;<br>
+            case 3: display(); break;<br>
+            case 4: exit(0);<br>
+            default: printf("\nWrong selection!!! Please try again!!!\n");<br>
+            }<br>
+            }<br>
+            }<br>
+            void enQueue (int value)<br>
+            {<br>
+            struct Node *newNode;<br>
+            newNode = (struct Node*)malloc(sizeof(struct Node));<br>
+            newNode->data = value;<br>
+            newNode -> next = NULL;<br>
+            if(front == NULL)<br>
+            front = rear = newNode;<br>
+            else{<br>
+            rear -> next = newNode;<br>
+            rear = newNode;<br>
+            }<br>
+            printf("\nInsertion is Success!!!\n");<br>
+            }<br>
+            void deQueue()<br>
+            {<br>
+            if(front == NULL)<br>
+            printf("\nQueue is Empty!!!\n");<br>
+            else{<br>
+            struct Node *temp = front;<br>
+            front = front -> next;<br>
+            printf("\nDeleted element: %d\n", temp->data);<br>
+            free(temp);<br>
+            }<br>
+            }<br>
+            void display()<br>
+            {<br>
+            if(front == NULL)<br>
+            printf("\nQueue is Empty!!!\n");<br>
+            else{<br>
+            printf("queue elements are:\n ");<br>
+            struct Node *temp = front;<br>
+            while(temp->next != NULL){<br>
+             printf("%d--->",temp->data);<br>
+            temp = temp -> next;<br>
+            }<br>
+            printf("%d--->NULL\n",temp->data);<br>
+            }<br>
+            }<br>
+</body>
+</html>

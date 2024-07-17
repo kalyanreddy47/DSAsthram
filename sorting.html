@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Insertion sort, Quick sort, Merge sort, Heap sort, shell sort</title>
+</head>
+<body>
+<h3>Insertion Sort</h3>
+#include stdio.h <br>
+    void insertionSort(int arr[], int n) {<br>
+    for (int i = 1; i < n; i++) {<br>
+    int key = arr[i];<br>
+    int j = i - 1;<br>
+    while (j >= 0 && arr[j] > key) {<br>
+    arr[j + 1] = arr[j];<br>
+    j = j - 1;<br>
+    }<br>
+    arr[j + 1] = key;<br>
+    }<br>
+    }<br>
+    int main() {<br>
+    int n;<br>
+    printf("Enter the number of elements: ");<br>
+    scanf("%d", &n);<br>
+    int arr[n];<br>
+    printf("Enter %d integers: ", n);<br>
+    for (int i = 0; i < n; i++) {<br>
+    scanf("%d", &arr[i]);<br>
+    }<br>
+    insertionSort(arr, n);<br>
+    printf("Sorted array: ");<br>
+    for (int i = 0; i < n; i++) {<br>
+    printf("%d ", arr[i]);<br>
+    }<br>
+    printf("\n");<br>
+    return 0;<br>
+    }<br>
+    
+    <h3>Quick Sort</h3>
+    #include stdio.h<br>
+        void swap(int* a, int* b) {<br>
+        int temp = *a;<br>
+        *a = *b;<br>
+        *b = temp;<br>
+        }<br>
+        int partition(int arr[], int low, int high) {<br>
+        int pivot = arr[high];<br>
+        int i = (low - 1);<br>
+        for (int j = low; j <= high - 1; j++) {<br>
+        if (arr[j] < pivot) {<br>
+        i++;<br>
+        swap(&arr[i], &arr[j]);<br>
+        }<br>
+        }<br>
+        swap(&arr[i + 1], &arr[high]);<br>
+        return (i + 1);<br>
+        }<br>
+        void quickSort(int arr[], int low, int high) {<br>
+        if (low < high) {<br>
+        int pi = partition(arr, low, high);<br>
+        quickSort(arr, low, pi - 1);<br>
+        quickSort(arr, pi + 1, high);<br>
+        }<br>
+        }<br>
+        int main() {<br>
+        int n;<br>
+        printf("Enter the number of elements: ");<br>
+        scanf("%d", &n);<br>
+        int arr[n];<br>
+        printf("Enter %d integers: ", n);<br>
+        for (int i = 0; i < n; i++) {<br>
+        scanf("%d", &arr[i]);<br>
+        }<br>
+        quickSort(arr, 0, n - 1);<br>
+        printf("Sorted array: ");<br>
+        for (int i = 0; i < n; i++) {<br>
+        printf("%d ", arr[i]);<br>
+        }<br>
+        printf("\n");<br>
+        return 0;<br>
+        }<br>
+
+        <h3>Merge Sort</h3>
+        #include stdio.h <br>
+            void merge(int A[], int mid, int low, int high)<br>
+            {<br>
+             int i, j, k, B[100];<br>
+             i = low;<br>
+             j = mid + 1;<br>
+             k = low;<br>
+             while (i <= mid && j <= high)<br>
+             {<br>
+             if (A[i] < A[j])<br>
+             {<br>
+             B[k] = A[i];<br>
+             i++;<br>
+             k++;<br>
+             }<br>
+             else<br>
+             {<br>
+             B[k] = A[j];<br>
+             j++;<br>
+             k++;<br>
+             }<br>
+             }<br>
+             while (i <= mid)<br>
+             {<br>
+             B[k] = A[i];<br>
+             k++;<br>
+             i++;<br>
+            }<br>
+            while (j <= high)<br>
+            {<br>
+            B[k] = A[j];<br>
+            k++;<br>
+            j++;<br>
+            }<br>
+           // It will copy data from temporary array to array<br>
+            for (int i = low; i <= high; i++)<br>
+            {<br>
+            A[i] = B[i];<br>
+            }<br>
+           }<br>
+           void mergeSort(int number[], int low, int high)<br>
+           {<br>
+            int mid;<br>
+            if(low < high)<br>
+           {<br>
+           // finding the mid value of the array.<br>
+            mid = (low + high) /2;<br>
+           // Calling the merge sort for the first half<br>
+            mergeSort(number, low, mid);<br>
+           // Calling the merge sort for the second half<br>
+            mergeSort(number, mid+1, high);<br>
+           // Calling the merge function<br>
+            merge(number, mid, low, high);<br>
+            }<br>
+           }<br>
+           int main()<br>
+           {<br>
+            int i, count, number[25];<br>
+            printf("How many elements are u going to enter?: ");<br>
+            scanf("%d",&count);<br>
+            for(i=0;i < count;i++)<br>
+            {<br>
+            printf("\nEnter %d element: ", i+1);<br>
+            scanf("%d",&number[i]);<br>
+            }<br>
+            mergeSort(number,0,count-1);<br>
+            printf("Order of Sorted elements: ");<br>
+            for(i=0;i < count;i++)<br>
+            printf(" %d",number[i]);<br>
+            return 0;<br>
+           }<br>
+           
+           <h3>Heap sort</h3>
+           #include stdio.h <br>
+            // Function to swap two elements<br>
+            void swap(int *a, int *b) {<br>
+             int t = *a;<br>
+             *a = *b;<br>
+             *b = t;<br>
+            }<br>
+            /* heapify the subtree with root i */<br>
+            void heapify(int* arr, int n, int i)<br>
+            {<br>
+             // store largest as the root element<br>
+             int largest = i;<br>
+             int left = 2 * i + 1;<br>
+             int right = 2 * i + 2;<br>
+             // now check whether the right and left right is larger than the root or not<br>
+             if (left < n && arr[left] > arr[largest])<br>
+             {<br>
+             largest = left;<br>
+             }<br>
+             if (right < n && arr[right] > arr[largest])<br>
+             {<br>
+             largest = right;<br>
+             }<br>
+             // if the root is smaller than the children then swap it with the largest<br>
+            children's value<br>
+             if (largest != i)<br>
+             {<br>
+             swap(&arr[i], &arr[largest]);<br>
+             // again heapify that side of the heap where the root has gone<br>
+             heapify(arr, n, largest);<br>
+             }<br>
+            }<br>
+            /* sorts the given array of n size */<br>
+            void heapsort(int* arr, int n)<br>
+            {<br>
+             // build the binary max heap<br>
+             for (int i = n / 2 - 1; i >= 0; i--)<br>
+             {<br>
+             heapify(arr, n, i);<br>
+             }<br>
+             // sort the max heap<br>
+             for (int i = n - 1; i >= 0; i--)<br>
+             {<br>
+                // swap the root node and the last leaf node<br>
+                swap(&arr[i], &arr[0]);<br>
+                // again heapify the max heap from the root<br>
+                heapify(arr, i, 0);<br>
+                }<br>
+               }<br>
+               int main()<br>
+               {<br>
+                int i, count, number[25];<br>
+                printf("How many elements are u going to enter?: ");<br>
+                scanf("%d",&count);<br>
+                for(i=0;i < count;i++)<br>
+                {<br>
+                printf("\nEnter %d element: ", i+1);<br>
+                scanf("%d",&number[i]);<br>
+                }<br>
+                heapsort(number,count);<br>
+                printf("Order of Sorted elements: ");<br>
+                for(i=0;i < count;i++)<br>
+                printf(" %d",number[i]);<br>
+                return 0;<br>
+               } <br>    
+               
+               <h3>Shell Sort</h3>
+               #include stdio.h <br>
+                void swap(int *a, int *b)<br>
+                {<br>
+                 *a=*a + *b;<br>
+                 *b=*a - *b;<br>
+                 *a=*a - *b;<br>
+                 return ;<br>
+                }<br>
+                // Function definition of sort array using shell sort<br>
+                void shellsort(int arr[], int nums)<br>
+                {<br>
+                 // i -> gap/interval<br>
+                 for (int i = nums / 2; i > 0; i = i / 2)<br>
+                 {<br>
+                 // Traverse j till we reach the end of the sublist.<br>
+                 for (int j = i; j < nums; j++)<br>
+                 {<br>
+                 for(int k = j - i; k >= 0; k = k - i)<br>
+                 {<br>
+                 if (arr[k+i] >= arr[k])<br>
+                 {            <br>
+                    break;<br>
+                }<br>
+                else<br>
+                {<br>
+                swap(&arr[k], &arr[k+i]);<br>
+                }<br>
+                }<br>
+                }<br>
+                }<br>
+                return ;<br>
+               }<br>
+               int main()<br>
+               {<br>
+                int nums;<br>
+                printf("Enter total no. of elements :: ");<br>
+                scanf("%d", &nums);<br>
+                int arr[nums];<br>
+                printf("Enter the array:: \n");<br>
+                //scan the array elements.<br>
+                for (int k = 0 ; k < nums; k++)<br>
+                {<br>
+                scanf("%d", &arr[k]);<br>
+                }<br>
+                //Call the function of shell sort, bypassing the array base pointer to the first<br>
+               element.<br>
+                shellsort(arr, nums);<br>
+                // After the sorting the array is<br>
+                printf("Sorted array is: \n");<br>
+                for (int k = 0; k < nums; k++)<br>
+                {<br>
+                printf("%d ", arr[k]);<br>
+                }<br>
+                return 0;<br>
+               }           <br>         
+</body>
+</html>

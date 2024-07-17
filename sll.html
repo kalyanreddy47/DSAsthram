@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Singly Linked List</title>
+</head>
+<body>
+    #include stdio.h <br>
+        #include stdlib.h<br>
+        //creation of node<br>
+        struct node{<br>
+        int data;<br>
+        struct node*next;<br>
+        }*head=NULL;<br>
+        int count()<br>
+        {<br>
+        struct node *temp;<br>
+        int i=1;<br>
+        temp=head;<br>
+        while(temp->next!=NULL)<br>
+        {<br>
+        temp=temp->next;<br>
+        i++;<br>
+        }<br>
+        return(i);<br>
+        }<br>
+        //creation of linked list<br>
+        struct node *create(int value)<br>
+        {<br>
+        struct node *temp;<br>
+        temp=(struct node*)malloc(sizeof(struct node));<br>
+        temp->data=value;<br>
+        temp->next=NULL;<br>
+        return temp;<br>
+        }<br>
+        //insertion at beginning of linked list<br>
+        void insert_begin(int value)<br>
+        {<br>
+        struct node *newnode;<br>
+        newnode=create(value);<br>
+        if(head==NULL)<br>
+        {<br>
+        head=newnode;<br>
+    }<br>
+    else<br>
+    {<br>
+    newnode->next=head;<br>
+    head=newnode;<br>
+    }<br>
+    }<br>
+    //insertion at the end of linked list<br>
+    void insert_end(int value)<br>
+    {<br>
+    struct node *newnode, *temp;<br>
+    newnode=create(value);<br>
+    if(head==NULL)<br>
+    {<br>
+    head=newnode;<br>
+    }<br>
+    else<br>
+    {<br>
+    temp=head;<br>
+    while(temp->next!=NULL)<br>
+    {<br>
+    temp=temp->next;<br>
+    }<br>
+    temp->next=newnode;<br>
+    }<br>
+    }<br>
+    //insertion at the middle where you want<br>
+    void insert_pos(int value,int pos)<br>
+    {<br>
+    struct node *newnode, *temp1,*temp2;<br>
+    int i,c=1;<br>
+    newnode=create(value);<br>
+    i=count();<br>
+    if(pos==1)<br>
+    insert_begin(value);<br>
+    else if(pos>i+1)<br>
+    {<br>
+    printf("insertion is not possible");<br>
+    return;<br>
+}<br>
+else<br>
+{<br>
+temp1=head;<br>
+while(c<=pos-1 && temp1!=NULL)<br>
+{<br>
+temp2=temp1;<br>
+temp1=temp1->next;<br>
+c++;<br>
+}<br>
+newnode->next=temp2->next;<br>
+temp2->next=newnode;<br>
+}<br>
+}<br>
+//deletion from the front of linked list<br>
+void delete_begin()<br>
+{<br>
+struct node *temp;<br>
+if(head==NULL)<br>
+{<br>
+printf("deletion is not possible");<br>
+}<br>
+else<br>
+{<br>
+temp=head;<br>
+head=head->next;<br>
+free(temp);<br>
+}<br>
+}<br>
+//deletion from the end of linked list<br>
+void delete_end()<br>
+{<br>
+struct node *temp1,*temp2;<br>
+if(head==NULL)<br>
+{<br>
+printf("deletion is not possible");<br>
+}<br>
+else<br>
+{<br>
+temp1=head;<br>
+while(temp1->next!=NULL)<br>
+{<br>
+temp2=temp1;<br>
+temp1=temp1->next;<br>
+}<br>
+temp2->next=NULL;<br>
+free(temp1);<br>
+}<br>
+}<br>
+//deletion of the middle data that you want<br>
+void delete_pos(int pos)<br>
+{<br>
+struct node *temp1,*temp2;<br>
+int i,c=1;<br>
+i=count();<br>
+if(pos==1)<br>
+delete_begin();<br>
+else if(pos>i)<br>
+{<br>
+printf("Deletion is not possible");<br>
+return;<br>
+}<br>
+else<br>
+{<br>
+temp1=head;<br>
+while(c<=pos && temp1->next!=NULL)<br>
+{<br>
+temp2=temp1;<br>
+temp1=temp1->next;<br>
+c++;<br>
+}<br>
+temp2->next=temp1->next;<br>
+free(temp1);<br>
+}<br>
+}<br>
+//display the linked list<br>
+void display()<br>
+{<br>
+struct node *temp;<br>
+if(head==NULL)<br>
+{<br>
+printf("list is empty");<br>
+}<br>
+else<br>
+{<br>
+temp=head;<br>
+while(temp->next!=NULL)<br>
+{<br>
+printf("%d-> ",temp->data);<br>
+temp=temp->next;<br>
+}<br>
+printf("%d",temp->data);<br>
+}<br>
+}<br>
+//main program<br>
+void main()<br>
+{<br>
+int ch,pos,value;<br>
+do<br>
+{<br>
+printf("\nSingle Linked List operations");<br>
+printf("\n1.insertion at beginning of linked list");<br>
+printf("\n2.insertion at the end of linked list");<br>
+printf("\n3.insertion at the middle where you want");<br>
+printf("\n4.deletion from the front of linked list");<br>
+printf("\n5.deletion from the end of linked list ");<br>
+printf("\n6.deletion of the middle data that you want");<br>
+printf("\n7.display the linked list");<br>
+printf("\n8.exit\n");<br>
+printf("\nenter the choice of operation to perform on linked list:");<br>
+scanf("%d",&ch);<br>
+switch(ch)<br>
+{<br>
+    case 1: printf("enter the value:");<br>
+    scanf("%d",&value);<br>
+    insert_begin(value);<br>
+    break;<br>
+    case 2: printf("enter value:");<br>
+    scanf("%d",&value);<br>
+    insert_end(value);<br>
+    break;<br>
+    case 3: printf("enter value:");<br>
+    scanf("%d",&value);<br>
+    printf("enter position you want to insert: ");<br>
+    scanf("%d",&pos);<br>
+    insert_pos(value,pos);<br>
+    break;<br>
+    case 4: delete_begin();<br>
+    break;<br>
+    case 5: delete_end();<br>
+    break;<br>
+    case 6: printf("enter position you want to delete: ");<br>
+    scanf("%d",&pos);<br>
+    delete_pos(pos);<br>
+    break;<br>
+    case 7: display();<br>
+    break;<br>
+    case 8:break;<br>
+    default: printf("\n your choice is wrong!.. ");<br>
+    }<br>
+    }while(ch!=8);<br>
+    }<br>
+</body>
+</html>

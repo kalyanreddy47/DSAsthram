@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementations of Operations On Binary Search Tree</title>
+</head>
+<body>
+    <h2>Implementations of Operations On Binary Search Tree</h2>
+    #include stdio.h <br>
+        #include stdlib.h<br>
+        typedef struct node {<br>
+        int data;<br>
+        struct node* left;<br>
+        struct node* right;<br>
+        } node;<br>
+        node* createNode(int data) {<br>
+        node* newNode = (node*)malloc(sizeof(node));<br>
+        newNode->data = data;<br>
+        newNode->left = NULL;<br>
+        newNode->right = NULL;<br>
+        return newNode;<br>
+        }<br>
+        node* search(node* root, int value) {<br>
+        if (root == NULL || root->data == value) {<br>
+        return root;<br>
+        }<br>
+        node* leftResult = search(root->left, value);<br>
+        if (leftResult != NULL) {<br>
+        return leftResult;<br>
+        }<br>
+        return search(root->right, value);<br>
+        }<br>
+        node* mirrorTree(node* root) {<br>
+        if (root == NULL) {<br>
+        return NULL;<br>
+        }<br>
+        node* temp = root->left;<br>
+        root->left = mirrorTree(root->right);<br>
+        root->right = mirrorTree(temp);<br>
+        return root;<br>
+        }<br>
+        node* copyTree(node* root) {<br>
+        if (root == NULL) {<br>
+        return NULL;<br>
+        }<br>
+        node* newNode = createNode(root->data);<br>
+        newNode->left = copyTree(root->left);<br>
+        newNode->right = copyTree(root->right);<br>
+        return newNode;<br>
+        }<br>
+        void deleteTree(node* root) {<br>
+        if (root == NULL) {<br>
+        return;<br>
+        }<br>
+        deleteTree(root->left);<br>
+        deleteTree(root->right);<br>
+        free(root);<br>
+        }<br>
+        void levelOrderDisplay(node* root) {<br>
+        if (root == NULL) {<br>
+        return;<br>
+        }<br>
+        node** queue = (node**)malloc(sizeof(node*) * 100);<br>
+        int front = -1, rear = -1;<br>
+        queue[++rear] = root;<br>
+        while (front != rear) {<br>
+        node* current = queue[++front];<br>
+        printf("%d ", current->data);<br>
+        if (current->left != NULL) {<br>
+        queue[++rear] = current->left;<br>
+        }<br>
+        if (current->right != NULL) {<br>
+        queue[++rear] = current->right;<br>
+        }<br>
+        }<br>
+        free(queue);<br>
+        }<br>
+        int main() {<br>
+        node* root = createNode(1);<br>
+        root->left = createNode(2);<br>
+        root->right = createNode(3);<br>
+        root->left->left = createNode(4);<br>
+        root->left->right = createNode(5);<br>
+        printf("Original Tree (Level Order): ");<br>
+        levelOrderDisplay(root);<br>
+        printf("\n");<br>
+        int key;<br>
+         printf("Enter the element or node to search: ");<br>
+         scanf("%d", &key);<br>
+         struct node* result = search(root, key);<br>
+         if (result != NULL) {<br>
+         printf("Search Element found in the binary tree.");<br>
+         } else {<br>
+         printf("Search Element not found in the binary tree.");<br>
+         }<br>
+         printf("\n");<br>
+        node* mirroredRoot = mirrorTree(root);<br>
+        printf("Mirrored Tree (Level Order): ");<br>
+        levelOrderDisplay(mirroredRoot);<br>
+        printf("\n");<br>
+        node* copiedRoot = copyTree(root);<br>
+        printf("Copied Tree (Level Order): ");<br>
+        levelOrderDisplay(copiedRoot);<br>
+        printf("\n");<br>
+        deleteTree(root);<br>
+        printf("Binary tree deleted successfully.");<br>
+        return 0;<br>
+        }<br>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Hashing</title>
+</head>
+<body>
+    <h2>Implementation of Hashing</h2>
+    #include stdio.h <br>
+        #include stdlib.h <br>
+        #define TABLE_SIZE 20<br>
+        #define DELETED -1<br>
+        int ht[TABLE_SIZE];<br>
+        int hash_function(int ele) {<br>
+        return ele % TABLE_SIZE;<br>
+        }<br>
+        void insert(int element) {<br>
+        int index = hash_function(element);<br>
+        int n = 0;<br>
+        while (ht[index] != 0 && ht[index] != DELETED && n++ < TABLE_SIZE) {<br>
+        index = hash_function(index + 1);<br>
+        }<br>
+        if (n == TABLE_SIZE) {<br>
+        printf("Hash Table Full\n");<br>
+        } else {<br>
+        ht[index] = element;<br>
+        }<br>
+        }<br>
+        void delete_element(int element) {<br>
+        int index = hash_function(element);<br>
+        int n = 0;<br>
+        while (n++ < TABLE_SIZE) {<br>
+        if (ht[index] == 0) {<br>
+        printf("Not Found\n");<br>
+        return;<br>
+        }<br>
+        if (ht[index] == element) {<br>
+        ht[index] = DELETED;<br>
+        printf("Deleted\n");<br>
+        return;<br>
+        }<br>
+        index = hash_function(index + 1);<br>
+        }<br>
+        printf("Not Found\n");<br>
+        }<br>
+        void display() {<br>
+        for (int i = 0; i < TABLE_SIZE; i++) {<br>
+        printf("%d ", ht[i]);<br>
+        }<br>
+        printf("\n");<br>
+        }<br>
+        void search(int element) {<br>
+        int index = hash_function(element);<br>
+        int n = 0;<br>
+        while (n++ < TABLE_SIZE) {<br>
+        if (ht[index] == 0) {<br>
+        printf("Not Found\n");<br>
+        return;<br>
+        }<br>
+        if (ht[index] == element) {<br>
+        printf("Element Found in Hash Table\n");<br>
+        return;<br>
+        }<br>
+        index = hash_function(index + 1);<br>
+        }<br>
+        printf("Not Found\n");<br>
+        }<br>
+        int main() {<br>
+        int choice, element;<br>
+        for (int i = 0; i < TABLE_SIZE; i++) {<br>
+        ht[i] = 0;<br>
+        }<br>
+        while (1) {<br>
+        printf("1-Insert item in the Hash Table\n2-Remove item from the Hash Table\n3-Display<br>
+        a Hash Table\n4-Search item in the Hash Table\n5-Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d", &choice);<br>
+        switch (choice) {<br>
+        case 1:<br>
+        printf("Enter Element to Insert: ");<br>
+        scanf("%d", &element);<br>
+        insert(element);<br>
+        break;<br>
+        case 2:<br>
+        printf("Enter Element to Delete: ");<br>
+        scanf("%d", &element);<br>
+        delete_element(element);<br>
+        break;<br>
+        case 3:<br>
+        display();<br>
+        break;<br>
+        case 4:<br>
+        printf("Enter Element to Search for: ");<br>
+        scanf("%d", &element);<br>
+        search(element);<br>
+        break;<br>
+        case 5:<br>
+        printf("Exiting...\n");<br>
+        return 0;<br>
+        default:<br>
+        printf("Enter a valid option\n");<br>
+        break;<br>
+        }<br>
+        }<br>
+        return 0;<br>
+        }    <br>
+</body>
+</html>

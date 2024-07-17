@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Using Array</title>
+</head>
+<body>
+    #include <stdio.h> <br>
+        #include <stdlib.h><br>
+        #define MAX_SIZE 5<br>
+        int queue[MAX_SIZE],front=-1, rear=-1;<br>
+        // Function to add an element to the queue<br>
+        void enqueue(int element)<br>
+        {<br>
+         if (rear == MAX_SIZE - 1)<br>
+        {<br>
+         printf("Queue Overflow\n");<br>
+         }<br>
+        else<br>
+        {<br>
+        if(front == -1)<br>
+        front = 0;<br>
+        queue[++rear] = element;<br>
+         }<br>
+        }<br>
+        // Function to remove an element from the queue<br>
+        int dequeue()<br>
+        {<br>
+        int item;<br>
+         if (front == -1)<br>
+        {<br>
+        printf("Queue Underflow\n");<br>
+         return -1; // Indicating underflow<br>
+         }<br>
+        else<br>
+        {<br>
+         int item = queue[front++];<br>
+         if (front > rear) // Queue is now empty<br>
+        {<br>
+         front = -1;<br>
+         rear = -1;<br>
+         }<br>
+         return item;<br>
+         }<br>
+        }<br>
+        // Function to display all the items from Queue<br>
+void display()<br>
+{<br>
+ int i;<br>
+ if (front == -1)<br>
+{<br>
+printf("Queue is Empty\n");<br>
+ }<br>
+ else<br>
+ {<br>
+ for(i=front;i<=rear;i++)<br>
+ printf("%d\t",queue[i]);<br>
+ }<br>
+}<br>
+// Main function<br>
+int main() {<br>
+ int ch,data;<br>
+ do{<br>
+ printf("\n QUEUE OPERATIONS\n");<br>
+ printf("\n1. Insert\n2. Delete\n3. Display\n4. Exit");<br>
+ printf("\nEnter your choice: ");<br>
+ scanf("%d",&ch);<br>
+ switch(ch)<br>
+ {<br>
+ case 1: printf("Enter data to insert: ");<br>
+ scanf("%d",&data);<br>
+ enqueue(data);<br>
+ break;<br>
+ case 2: printf("Deleted: %d\n", dequeue());<br>
+ break;<br>
+ case 3: display();<br>
+ break;<br>
+ case 4: break;<br>
+ default: printf("your choice is wrong!..");<br>
+ }<br>
+ }while(ch!=4);<br>
+ return 0;<br>
+}<br>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Binary Search Tree</title>
+</head>
+<body>
+    <h2>Implementation of Binary Search Tree</h2>
+    #include stdio.h <br>
+        #include stdlib.h<br>
+        typedef struct node {<br>
+        int data;<br>
+        struct node* left;<br>
+        struct node* right;<br>
+        } node;<br>
+        node* create(int data) {<br>
+        node* temp = (node*) malloc (sizeof(node));<br>
+        temp->data = data;<br>
+        temp->left = NULL;<br>
+        temp->right = NULL;<br>
+        return temp;<br>
+        }<br>
+        void insert(node** rootptr, int data) {<br>
+        if (*rootptr == NULL) {<br>
+        node* temp = create(data);<br>
+        *rootptr = temp;<br>
+        } else if (data < (*rootptr)->data)<br>
+        insert(&(*rootptr)->left, data);<br>
+        else<br>
+        insert(&(*rootptr)->right, data);<br>
+        }<br>
+        void InOrder(node* rootptr) {<br>
+        if (rootptr == NULL)<br>
+        return;<br>
+        InOrder(rootptr->left);<br>
+        printf("%d ", rootptr->data);<br>
+        InOrder(rootptr->right);<br>
+        }<br>
+        node* search(node* rootptr, int key) {<br>
+        if (rootptr == NULL) {<br>
+        printf("Not Found");<br>
+        return rootptr;<br>
+        }<br>
+        if (rootptr->data == key) {<br>
+        printf("Found");<br>
+        return NULL;<br>
+        }<br>
+        if (key < rootptr->data)<br>
+        return search(rootptr->left, key);<br>
+        else<br>
+        return search(rootptr->right, key);<br>
+        }<br>
+        node* delete(node* rootptr, int data) {<br>
+        if (rootptr == NULL)<br>
+        return NULL;<br>
+        if (data < rootptr->data)<br>
+        rootptr->left = delete(rootptr->left, data);<br>
+        else if (data > rootptr->data)<br>
+        rootptr->right = delete(rootptr->right, data);<br>
+        else {<br>
+        if (rootptr->left == NULL) {<br>
+        node* temp = rootptr->right;<br>
+        free(rootptr);<br>
+        return temp;<br>
+        } else if (rootptr->right == NULL) {<br>
+        node* temp = rootptr->left;<br>
+        free(rootptr);<br>
+        return temp;<br>
+        }<br>
+        node* temp = rootptr->right;<br>
+        while (temp->left != NULL) {<br>
+        temp = temp->left;<br>
+        }<br>
+        rootptr->data = temp->data;<br>
+        rootptr->right = delete(rootptr->right, temp->data);<br>
+        }<br>
+        return rootptr;<br>
+        }<br>
+        int main() {<br>
+        node* root = NULL;<br>
+        int choice, data, key;<br>
+        do {<br>
+        printf("\nBinary Search Tree Operations:\n");<br>
+        printf("1. Insert\n");<br>
+        printf("2. Delete\n");<br>
+        printf("3. Search\n");<br>
+        printf("4. Display InOrder Traversal\n");<br>
+        printf("5. Exit\n");<br>
+        printf("Enter your choice: ");<br>
+        scanf("%d", &choice);<br>
+        switch (choice) {<br>
+        case 1:<br>
+        printf("Enter data to insert: ");<br>
+        scanf("%d", &data);<br>
+        insert(&root, data);<br>
+        break;<br>
+        case 2:<br>
+        printf("Enter data to delete: ");<br>
+        scanf("%d", &data);<br>
+        root = delete(root, data);<br>
+        break;<br>
+        case 3:<br>
+        printf("Enter key to search: ");<br>
+        scanf("%d", &key);<br>
+        search(root, key);<br>
+        break;<br>
+        case 4:<br>
+        printf("InOrder Traversal: ");<br>
+        InOrder(root);<br>
+        printf("\n");<br>
+        break;<br>
+        case 5:<br>
+        printf("Exiting...\n");<br>
+        break;<br>
+        default:<br>
+        printf("Invalid choice. Please enter a valid option.\n");<br>
+        }<br>
+        } while (choice != 5);<br>
+        return 0;<br>
+        }<br>
+</body>
+</html>

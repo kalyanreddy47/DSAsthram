@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stack using Array</title>
+</head>
+<body>
+    #include <stdio.h> <br>
+        #include <stdlib.h><br>
+        #define MAX_SIZE 10<br>
+        int stack[MAX_SIZE],top=-1;<br>
+        // Function to add an item to the stack<br>
+        void push(int item) {<br>
+         if (top == MAX_SIZE - 1) {<br>
+         printf("Stack Overflow\n");<br>
+         } else {<br>
+         stack[++top] = item;<br>
+         }<br>
+        }<br>
+        // Function to remove an item from the stack<br>
+        int pop() {<br>
+         if (top==-1) {<br>
+         printf("Stack Underflow\n");<br>
+         return -1; // Indicating underflow<br>
+         } else {<br>
+         return stack[top--];<br>
+         }<br>
+        }<br>
+        // Function to get the top item of the stack<br>
+        int peek() {<br>
+         if (top==-1) {<br>
+         printf("Stack is Empty\n");<br>
+         return -1; // Indicating empty stack<br>
+         } else {<br>
+         return stack[top];<br>
+         }<br>
+        }<br>
+        // Function to Display all the items from stack<br>
+        void display()<br>
+        {<br>
+         int i;<br>
+         if (top==-1)<br>
+         printf("Stack is Empty\n");<br>
+         else{<br>
+         for(i=top;i>-1;i--)<br>
+         printf("%d\n",stack[i]);<br>
+         }<br>
+        }<br>
+        
+        // Main function<br>
+int main()<br>
+{<br>
+ int ch,data;<br>
+ do<br>
+{<br>
+ printf(“STACK OPEARTIONS\n”)<br>
+ printf("\n1. Push\n2. Pop\n3. Peek(top)\n4. display\n5. Exit");<br>
+ printf("\nEnter your choice: ");<br>
+ scanf("%d",&ch);<br>
+ switch(ch)<br>
+ {
+case 1: printf("Enter data to push:");<br>
+ scanf("%d",&data);<br>
+ push(data);<br>
+ break;<br>
+case 2: printf("Popped: %d\n", pop());<br>
+ break;<br>
+case 3: printf("Top element: %d\n", peek());<br>
+ break;<br>
+case 4: display();<br>
+ break;<br>
+ case 5: break;<br>
+ default: printf("Enter valid choice");<br>
+ }<br>
+ } while(ch!=5);<br>
+ return 0;<br>
+}<br>
+</body>
+</html>

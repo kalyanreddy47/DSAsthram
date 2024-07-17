@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Traversals on Graphs</title>
+</head>
+<body>
+    <h2>Depth First Search (DFS) graph traversal method</h2>
+    #include stdio.h <br>
+        int stack[5],top=-1,known[10],n,a[10][10];<br>
+        void push(int val){<br>
+        stack[++top]=val;<br>
+        }<br>
+        int pop(){<br>
+        int ver=stack[top--];<br>
+        printf("%d-> ",ver);<br>
+        return ver;<br>
+        }<br>
+        int stackempty(){<br>
+        if(top==-1)<br>
+        return 1;<br>
+        else<br>
+        return 0;<br>
+        }<br>
+        void dfs(int sv){<br>
+        push(sv);<br>
+        known[sv]=1;<br>
+        while(!stackempty()){<br>
+        int i;<br>
+        int v=pop();<br>
+        for(i=n;i>0;i--){<br>
+        if(!(!(a[v][i]))&&!(known[i])){<br>
+        push(i);<br>
+        known[i]=1;<br>
+        }<br>
+        }<br>
+        }<br>
+        }<br>
+        int main(void) {<br>
+        // your code goes here<br>
+        int i,j,sv;<br>
+        printf("\nEnter number of vertices");<br>
+        scanf("%d",&n);<br>
+        printf("\n enter %d elements into adjcency matrix",n*n);<br>
+        for(i=1;i<=n;i++){<br>
+        for(j=1;j<=n;j++){<br>
+            scanf("%d",&a[i][j]);<br>
+        }<br>
+        }<br>
+        printf("\n enter Start vertex");<br>
+        scanf("%d",&sv);<br>
+        dfs(sv);<br>
+        return 0;<br>
+        }<br>
+
+        <h2>Breadth First Search (BFS) graph traversal method</h2>
+        #include stdio.h <br>
+            #define QUEUE_SIZE 20<br>
+            #define MAX 20<br>
+            //queue<br>
+            int queue[QUEUE_SIZE];<br>
+            int queue_front, queue_end;<br>
+            void enqueue(int v);<br>
+            int dequeue();<br>
+            void bfs(int Adj[MAX][MAX], int n, int source);<br>
+            int main(void) {<br>
+            //Adj matrix<br>
+            int Adj[MAX][MAX] ;//= {{0,1,0,0},{0,0,0,1},{1,0,0,0},{1,0,1,0}};// {{0,1,0,0},<br>
+            {0,1,1,1}, {1,0,0,1}, {0,0,1,0} };<br>
+            int i,j,n;// = 4; //no. of vertex<br>
+            int starting_vertex ;//= 2;<br>
+            printf("enter no of vertex");<br>
+            scanf("%d",&n);<br>
+            printf("\n enter %d vertices into matrix",n);<br>
+            for(i=0;i<n;i++)<br>
+            for(j=0;j<n;j++)<br>
+            scanf("%d",&Adj[i][j]);<br>
+            printf("\n enter starting vertex");<br>
+            scanf("%d",&starting_vertex);<br>
+            bfs(Adj, n, starting_vertex);<br>
+            return 0;<br>
+            }<br>
+            void bfs(int Adj[MAX][MAX], int n, int source) {<br>
+            //variables<br>
+            int i, j;<br>
+//visited array to flag the vertex that<br>
+//were visited<br>
+int visited[MAX];<br>
+//queue<br>
+queue_front = 0;<br>
+queue_end = 0;<br>
+//set visited for all vertex to 0 (means unvisited)<br>
+for(i = 0; i <= MAX; i++) {<br>
+visited[i] = 0;<br>
+}<br>
+//mark the visited source<br>
+visited[source] = 1;<br>
+//enqueue visited vertex<br>
+enqueue(source);<br>
+//print the vertex as result<br>
+printf("%d ", source);<br>
+//continue till queue is not empty<br>
+while(queue_front <= queue_end) {<br>
+//dequeue first element from the queue<br>
+i = dequeue();<br>
+for(j = 0; j <n; j++) { <br><br>
+if(visited[j] == 0 && Adj[i][j] == 1) {<br>
+//mark vertex as visited<br>
+visited[j] = 1;<br>
+//push vertex into stack<br>
+enqueue(j);<br>
+//print the vertex as result<br>
+printf("%d ", j);<br>
+}<br>
+}<br>
+}<br>
+printf("\n");<br>
+}<br>
+void enqueue(int v) {<br>
+queue[queue_end] = v;<br>
+queue_end++;<br>
+}<br>
+int dequeue() {<br>
+int index = queue_front;<br>
+queue_front++;<br>
+return queue[index];<br>
+}<br>
+</body>
+</html>

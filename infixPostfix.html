@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Infix to Postfix Conversion</title>
+</head>
+<body>
+    <h2>INFIX Conversion</h2>
+    #include<stdio.h> <br>
+        #include<stdlib.h><br>
+        #include<string.h><br>
+        #include<ctype.h><br>
+        #define max_size 100<br>
+        char stack[max_size];<br>
+        int top = -1;<br>
+        void push(char operator)<br>
+        {<br>
+        if(top == max_size - 1)<br>
+        return;<br>
+        else<br>
+        stack[++top] = operator;<br>
+        }<br>
+        char pop()<br>
+        {<br>
+        if(top == -1)<br>
+        return '~';<br>
+        else<br>
+        return stack[top--];<br>
+        }<br>
+        int priority(char operator)<br>
+        {<br>
+        switch (operator)<br>
+        {<br>
+        case '()':<br> return 0;<br>
+                      break;<br>
+        case '+':<br>
+        case '-':<br>
+        return 1;<br>
+        case '*':<br>
+        case '/':<br>
+        return 2;<br>
+break;<br>
+}<br>
+}<br>
+void main()<br>
+{<br>
+system("cls");<br>
+char expression[max_size];<br>
+char *e, x;<br>
+printf("Enter your expression: ");<br>
+fgets(expression, max_size, stdin);<br>
+e = expression;<br>
+while(*e != '\0')<br>
+{<br>
+if(*e == ' ' || *e == '\t')<br>
+e++;<br>
+if(isalnum(*e))<br>
+printf("%c ", *e);<br>
+else if(*e == '(')<br>
+push(*e);<br>
+else if(*e == ')')<br>
+{<br>
+while(x = pop()) != '(')<br>
+printf("%c ", x);<br>
+}<br>
+else<br>
+{<br>
+while(priority(stack[top]) >= priority(*e))<br>
+printf("%c ", pop());<br>
+push(*e);<br>
+}<br>
+e++;<br>
+}<br>
+while(top != -1)<br>
+printf("%c ", pop());<br>
+}<br>
+
+<h2>POSTFIX conversion</h2>
+#include<stdio.h> <br>
+    #include<ctype.h><br>
+    #include<math.h><br>
+    char expression[100];<br>
+    float Stack[70];<br>
+    int top = -1;<br>
+    int size = 70;<br>
+    void push(float element) {<br>
+    if(top < size - 1)<br>
+    Stack[++top] = element;<br>
+    }<br>
+    float pop() {<br>
+    if(top != -1)<br>
+    return Stack[top--];<br>
+    return INT_MIN; // Return a special value to indicate stack underflow<br>
+    }<br>
+    float eval() {<br>
+    int n1, n2;<br>
+    float n3;<br>
+    char *iter = expression;<br>
+    while(*iter != '\0') {<br>
+    if(isdigit(*iter)) {<br>
+    push((*iter) - '0');<br>
+    } else {<br>
+    n1 = pop();<br>
+    n2 = pop();<br>
+    switch (*iter) {<br>
+    case '+':<br>
+    n3 = n2 + n1;<br>
+    break;<br>
+    case '-':<br>
+    n3 = n2 - n1;<br>
+    break;<br>
+    case '*':<br>
+    n3 = n2 * n1;<br>
+    break;<br>
+    case '/':<br>
+    n3 = n2 / n1;<br>
+    break;<br>
+    case '^':<br>
+    n3 = pow(n2, n1);<br>
+    break;<br>
+    default:<br>
+    iter++;<br>
+    continue;<br>
+    }<br>
+    push(n3);<br>
+    }<br>
+    iter++;<br>
+    }<br>
+    return Stack[top];<br>
+    }<br>
+    int main() {<br>
+    printf("Enter expression: ");<br>
+    scanf("%s", expression);<br>
+    float val = eval();<br>
+    printf("%.2f is the evaluated result\n", val);<br>
+    return 0;<br>
+    }<br>
+</body>
+</html>

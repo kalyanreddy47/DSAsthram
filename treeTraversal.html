@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Tree Traversals on Binary Trees</title>
+</head>
+<body>
+    <h2>Implementation of Tree Traversals on Binary Trees</h2>
+    #include stdio.h <br>
+        #include malloc.h<br>
+        struct node<br>
+        {<br>
+         struct node *left;<br>
+         int data;<br>
+         struct node *right;<br>
+        };<br>
+        
+        void main()<br>
+        {<br>
+         void insert(struct node **,int);<br>
+         void inorder(struct node *);<br>
+         void postorder(struct node *);<br>
+         void preorder(struct node *);<br>
+        
+         struct node *ptr = NULL;<br>
+         int no,i,num;<br>
+        
+         // ptr = NULL;<br>
+         // ptr->data=0;<br>
+        
+         int data;<br>
+         char ch;<br>
+         /* Do while loop to display various options to select from to decide the<br>
+        input */<br>
+         do<br>
+         {<br>
+         printf("\nSelect one of the operations::");<br>
+         printf("\n1. To insert a new node in the Binary Tree");<br>
+         printf("\n2. To display the nodes of the Binary Tree(via Preorder<br>
+        Traversal).");<br>
+         printf("\n3. To display the nodes of the Binary Tree(via Inorder<br>
+        Traversal).");<br>
+         printf("\n4. To display the nodes of the Binary Tree(via Postorder<br>
+        Traversal).\n");<br>
+        
+         int choice;<br>
+         scanf("%d",&choice);<br>
+         switch (choice)<br>
+         {<br>
+         case 1 :<br>
+         printf("\nEnter the value to be inserted\n");<br>
+         scanf("%d",&data);<br>
+         insert(&ptr,data);<br>
+         break;<br>
+         case 2 :<br>
+         printf("\nPreorder Traversal of the Binary Tree::\n");<br>
+         preorder(ptr);<br>
+         break;<br>
+         case 3 :<br>
+         printf("\nInorder Traversal of the Binary Tree::\n");<br>
+         inorder(ptr);<br>
+         break;<br>
+         case 4 :<br>
+         printf("\nPostorder Traversal of the Binary Tree::\n");<br>
+         postorder(ptr);<br>
+         break;<br>
+         default :<br>
+         printf("Wrong Entry\n");<br>
+         break;<br>
+         }<br>
+        
+         printf("\nDo you want to continue (Type y or n)\n");<br>
+         scanf(" %c",&ch);<br>
+         } while (ch == 'Y'|| ch == 'y');<br>
+        }<br>
+        
+        void insert(struct node **p,int num)<br>
+        {<br>
+         if((*p)==NULL)<br>
+         {<br>
+         printf("Leaf node created.");<br>
+         (*p)=malloc(sizeof(struct node));<br>
+         (*p)->left = NULL;<br>
+         (*p)->right = NULL;<br>
+         (*p)->data = num;<br>
+         return;<br>
+         }<br>
+         else<br>
+         {<br>
+         if(num==(*p)->data)<br>
+         {<br>
+         printf("\nREPEATED ENTRY ERROR VALUE REJECTED\n");<br>
+         return;<br>
+         }<br>
+         if(num<(*p)->data)<br>
+         {<br>
+         printf("\nDirected to left link.\n");<br>
+         insert(&((*p)->left),num);<br>
+         }<br>
+         else<br>
+         {<br>
+         printf("Directed to right link.\n");<br>
+         insert(&((*p)->right),num);<br>
+         }<br>
+         }<br>
+         return;<br>
+        }<br>
+        
+        void inorder(struct node *p)<br>
+        {<br>
+         if(p!=NULL)<br>
+         {<br>
+         inorder(p->left);<br>
+         printf("%d ",p->data);<br>
+         inorder(p->right);<br>
+         }<br>
+         else<br>
+         return;<br>
+        }<br>
+        
+        void preorder(struct node *p)<br>
+        {<br>
+         if(p!=NULL)<br>
+         {<br>
+         printf("%d ",p->data);<br>
+         preorder(p->left);<br>
+         preorder(p->right);<br>
+         }<br>
+         else<br>
+         return;<br>
+        }<br>
+        
+        void postorder(struct node *p)<br>
+        {<br>
+         if(p!=NULL)<br>
+         {<br>
+         postorder(p->left);<br>
+         postorder(p->right);<br>
+         printf("%d ",p->data);<br>
+         }<br>
+         else<br>
+         return;<br>
+        }<br>
+</body>
+</html>

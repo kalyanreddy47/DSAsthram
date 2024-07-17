@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Binary Search</title>
+</head>
+<body>
+    <h2>Iterative</h2>
+    #include stdio.h <br>
+        #include stdbool.h<br>
+        int main() {<br>
+        bool Found = false;<br>
+        int low, high, mid, key, n, i;<br>
+        int array[20];<br>
+        printf("Enter number of elements in the array: ");<br>
+        scanf("%d", &n);<br>
+        printf("Enter elements: ");<br>
+        for (i = 0; i < n; i++) {<br>
+        scanf("%d", &array[i]);<br>
+        }<br>
+        printf("Enter key to search: ");<br>
+        scanf("%d", &key);<br>
+        low = 0;<br>
+        high = n - 1;<br>
+        while (low <= high) {<br>
+        mid = (low + high) / 2;<br>
+        if (array[mid] == key) {<br>
+        printf("Found at index %d ", mid);<br>
+        Found = true;<br>
+        break;<br>
+        } else if (key > array[mid]) {<br>
+        low = mid + 1;<br>
+        } else {<br>
+        high = mid - 1;<br>
+        }<br>
+        }<br>
+        if (!Found)<br>
+        printf("Not found in the array");<br>
+        return 0;<br>
+        }<br>
+        <h2>Recursive</h2>
+        #include stdio.h <br>
+            #include stdlib.h<br>
+            #define size 10<br>
+            int binsearch(int[], int, int, int);<br>
+            int main() {<br>
+            int num, i, key, position;<br>
+            int low, high, list[size];<br>
+            printf("\nEnter the total number of elements");<br>
+            scanf("%d", &num);<br>
+            printf("\nEnter the elements of list :");<br>
+            for (i = 0; i < num; i++) {<br>
+            scanf("%d", &list[i]);<br>
+            }<br>
+            low = 0;<br>
+            high = num - 1;<br>
+            printf("\nEnter element to be searched : ");<br>
+            scanf("%d", &key);<br>
+            position = binsearch(list, key, low, high);<br>
+            if (position != -1) {<br>
+            printf("\nNumber present at %d", (position + 1));<br>
+            } else<br>
+            printf("\n The number is not present in the list");<br>
+            return (0);<br>
+            }<br>
+            // Binary Search function<br>
+            int binsearch(int a[], int x, int low, int high) {<br>
+            int mid;<br>
+            if (low > high)<br>
+            return -1;<br>
+            mid = (low + high) / 2;<br>
+            if (x == a[mid]) {<br>
+            return (mid);<br>
+            } else if (x < a[mid]) {<br>
+            binsearch(a, x, low, mid - 1);<br>
+            } else { binsearch(a, x, mid + 1, high);<br>
+            }<br>
+            }<br>
+</body>
+</html>

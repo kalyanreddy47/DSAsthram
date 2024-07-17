@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementation of Prim's and Kruskal's</title>
+</head>
+<body>
+    <h2>Implementation of Prim's and Kruskal's</h2>
+    <h3>Prim's Algorithm</h3> 
+    #include limits.h <br>
+        #include stdbool.h<br>
+        #include stdio.h<br>
+        // Number of vertices in the graph<br>
+        #define V 5<br>
+        int minKey(int key[], bool mstSet[]) {<br>
+        int min = INT_MAX, min_index;<br>
+        for (int v = 0; v < V; v++)<br>
+        if (mstSet[v] == false && key[v] < min)<br>
+        min = key[v], min_index = v;<br>
+        return min_index;<br>
+        }<br>
+        int printMST(int parent[], int graph[V][V]) {<br>
+        printf("Edge \tWeight\n");<br>
+        for (int i = 1; i < V; i++)<br>
+        printf("%d - %d \t%d \n", parent[i], i, graph[i][parent[i]]);<br>
+        }<br>
+        void primMST(int graph[V][V]) {<br>
+        int parent[V];<br>
+        int key[V];<br>
+        bool mstSet[V];<br>
+        for (int i = 0; i < V; i++)<br>
+        key[i] = INT_MAX, mstSet[i] = false;<br>
+        key[0] = 0;<br>
+        parent[0] = -1;<br>
+        for (int count = 0; count < V - 1; count++) {<br>
+        int u = minKey(key, mstSet);<br>
+        mstSet[u] = true;<br>
+        for (int v = 0; v < V; v++)<br>
+        if (graph[u][v] && mstSet[v] == false && graph[u][v] < key[v])<br>
+        parent[v] = u, key[v] = graph[u][v];<br>
+        }<br>
+        printMST(parent, graph);<br>
+        }<br>
+        int main() {<br>
+        int graph[V][V] = {{0, 2, 0, 6, 0},<br>
+        {2, 0, 3, 8, 5},<br>
+        {0, 3, 0, 0, 7},<br>
+        {6, 8, 0, 0, 9},<br>
+        {0, 5, 7, 9, 0}};<br>
+        primMST(graph);<br>
+        return 0;<br>
+        }<br>
+
+        <h3>Kruskal's Algorithm</h3>
+        #include stdio.h <br>
+            #include stdlib.h<br>
+            #include limits.h<br>
+            #define V 5 // Number of vertices in the graph<br>
+            int graph[V][V] = {<br>
+            {0, 2, 0, 6, 0},<br>
+            {2, 0, 3, 8, 5},<br>
+            {0, 3, 0, 0, 7},<br>
+            {6, 8, 0, 0, 9},<br>
+            {0, 5, 7, 9, 0}<br>
+            };<br>
+            int minKey(int key[], int mstSet[]) {<br>
+            int min = INT_MAX, min_index;<br>
+            for (int v = 0; v < V; v++) {<br>
+            if (mstSet[v] == 0 && key[v] < min) {<br>
+            min = key[v];<br>
+            min_index = v;<br>
+            }<br>
+            }<br>
+            return min_index;<br>
+            }<br>
+            int find(int parent[], int i) {<br>
+            while (parent[i] != i)<br>
+            i = parent[i];<br>
+            return i;<br>
+            }<br>
+            void unionSet(int parent[], int x, int y) {<br>
+            int xset = find(parent, x);<br>
+            int yset = find(parent, y);<br>
+            parent[xset] = yset;<br>
+            }<br>
+            void kruskalMST() {<br>
+                int parent[V];<br>
+                for (int i = 0; i < V; i++)<br>
+                parent[i] = i;<br>
+                int edgeCount = 0;<br>
+                while (edgeCount < V - 1) {<br>
+                int min = INT_MAX, a = -1, b = -1;<br>
+                for (int i = 0; i < V; i++) {<br>
+                for (int j = 0; j < V; j++) {<br>
+                if (find(parent, i) != find(parent, j) && graph[i][j] && graph[i][j] < min) {<br>
+                min = graph[i][j];<br>
+                a = i;<br>
+                b = j;<br>
+                }<br>
+                }<br>
+                }<br>
+                unionSet(parent, a, b);<br>
+                printf("Edge %d: (%d, %d) cost: %d \n", edgeCount++, a, b, min);<br>
+                }<br>
+                }<br>
+                int main() {<br>
+                printf("\nKruskal's MST:\n");<br>
+                kruskalMST();<br>
+                return 0;<br>
+                }<br>
+                void kruskalMST() {<br>
+                    int parent[V];<br>
+                    for (int i = 0; i < V; i++)<br>
+                    parent[i] = i;<br>
+                    int edgeCount = 0;<br>
+                    while (edgeCount < V - 1) {<br>
+                    int min = INT_MAX, a = -1, b = -1;<br>
+                    for (int i = 0; i < V; i++) {<br>
+                    for (int j = 0; j < V; j++) {<br>
+                    if (find(parent, i) != find(parent, j) && graph[i][j] && graph[i][j] < min) {<br>
+                    min = graph[i][j];<br>
+                    a = i;<br>
+                    b = j;<br>
+                    }<br>
+                    }<br>
+                    }<br>
+                    unionSet(parent, a, b);<br>
+                    printf("Edge %d: (%d, %d) cost: %d \n", edgeCount++, a, b, min);<br>
+                    }<br>
+                    }<br>
+                    int main() {<br>
+                    printf("\nKruskal's MST:\n");<br>
+                    kruskalMST();<br>
+                    return 0;<br>
+                    }<br>
+                                            
+       
+</body>
+</html>
